@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
-import classes from "./Keyboard.module.css";
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
+import classes from './Keyboard.module.css';
 
 const KeyboardKey = ({ letter, style }) => {
   const { currentWord, setCurrentWord } = useContext(AppContext);

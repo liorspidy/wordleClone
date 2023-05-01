@@ -59,7 +59,7 @@
   outline: none;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 545px) {
   .keyboardKey {
     width: 2.4rem;
     height: 3rem;

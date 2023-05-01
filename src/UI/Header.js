@@ -1,10 +1,10 @@
-import classes from "./Header.module.css";
-import wordsDb from "../words.json";
-import Menu from "./Menu";
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
-import NightsStayIcon from "@mui/icons-material/NightsStay";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import classes from './Header.module.css';
+import wordsDb from '../words.json';
+import Menu from './Menu';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 const Header = ({ setShowAddWord, showAddWord, setLightMode, lightMode }) => {
   const {
@@ -20,15 +20,15 @@ const Header = ({ setShowAddWord, showAddWord, setLightMode, lightMode }) => {
   // };
 
   const newGameHandler = (event) => {
-    localStorage.removeItem("pickedWord");
+    localStorage.removeItem('pickedWord');
     const rand = Math.floor(Math.random() * wordsDb.length);
     setPickedWord(wordsDb[rand]);
-    localStorage.setItem("pickedWord", wordsDb[rand]);
+    localStorage.setItem('pickedWord', wordsDb[rand]);
     setGameState(0);
     setCurrentRowIndex(1);
     setFoundWords([]);
     setStartNewGame(true);
-    setCurrentWord("");
+    setCurrentWord('');
   };
 
   const nightModeHandler = () => {
@@ -41,12 +41,12 @@ const Header = ({ setShowAddWord, showAddWord, setLightMode, lightMode }) => {
     <div className={classes.header}>
       <div className={classes.buttons}>
         <Menu />
-        {!lightMode && (
+        {lightMode && (
           <div className={classes.nightMode} onClick={nightModeHandler}>
             <LightModeIcon />
           </div>
         )}
-        {lightMode && (
+        {!lightMode && (
           <div className={classes.nightMode}>
             <NightsStayIcon onClick={nightModeHandler} />
           </div>

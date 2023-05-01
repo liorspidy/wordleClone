@@ -68,11 +68,11 @@
   margin: 2rem 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 365px) {
   .wordleBlock {
     border: 2px solid rgb(216, 216, 216);
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     border-radius: 3px;
     display: flex;
     justify-content: center;
@@ -89,8 +89,8 @@
 @media screen and (max-width: 300px) {
   .wordleBlock {
     border: 2px solid rgb(216, 216, 216);
-    width: 45px;
-    height: 45px;
+    width: 47px;
+    height: 47px;
     border-radius: 3px;
     display: flex;
     justify-content: center;
