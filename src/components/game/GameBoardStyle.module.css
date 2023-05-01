@@ -1,0 +1,105 @@
+.wordleBlock {
+  border: 2px solid rgb(216, 216, 216);
+  background-color: rgb(239, 239, 239);
+  width: 65px;
+  height: 65px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  padding: 7px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  color: black;
+}
+
+.wordleBlock.correct {
+  color: white;
+  background-color: #2f872a;
+  border: 2px solid #2f872a;
+  animation: flip 1s cubic-bezier(0.27, 1.72, 0.32, 0.98);
+}
+
+.wordleBlock.almost {
+  color: white;
+  background-color: #cb912e;
+  border: 2px solid #cb912e;
+  animation: flip 1s cubic-bezier(0.27, 1.72, 0.32, 0.98);
+}
+
+.wordleBlock.wrong {
+  color: white;
+  background-color: #737373;
+  border: 2px solid #737373;
+  animation: flip 1s cubic-bezier(0.27, 1.72, 0.32, 0.98);
+}
+
+@keyframes flip {
+  0% {
+    opacity: 0;
+    transform: perspective(600px) rotatex(180deg);
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(600px) rotatex(0deg);
+  }
+}
+
+.wordleRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.wordleBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 2rem 0;
+}
+
+@media screen and (max-width: 600px) {
+  .wordleBlock {
+    border: 2px solid rgb(216, 216, 216);
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    padding: 3px 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    color: black;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .wordleBlock {
+    border: 2px solid rgb(216, 216, 216);
+    width: 45px;
+    height: 45px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    color: black;
+  }
+}

@@ -1,0 +1,13 @@
+.gameTitle h1 {
+  text-align: center;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* if in darkMode */
+
+body:not(.endGame) input,
+body:not(.endGame) {
+  background-color: rgb(41, 41, 41);
+  color: white;
+}

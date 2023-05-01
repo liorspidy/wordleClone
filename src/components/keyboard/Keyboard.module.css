@@ -1,0 +1,154 @@
+.keyboardKey {
+  width: 3.2rem;
+  height: 3.6rem;
+  background-color: rgb(81, 78, 78);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  padding: 15px 0;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.keyboardKey:hover {
+  background-color: rgb(119, 116, 116);
+}
+
+.bigkeyboardKey {
+  width: 6.2rem;
+  height: 3.6rem;
+  background-color: rgb(81, 78, 78);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bigkeyboardKey:hover {
+  background-color: rgb(119, 116, 116);
+}
+
+.keyboardRow {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+  width: 100%;
+  gap: 0.2rem;
+}
+
+.keyboardBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 2rem 0;
+}
+
+.keyboardInput {
+  width: 0;
+  border: none;
+}
+
+.keyboardInput:focus-visible {
+  border: none;
+  outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .keyboardKey {
+    width: 2.4rem;
+    height: 3rem;
+    background-color: rgb(81, 78, 78);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    padding: 11px 0;
+    /* align-items: center; */
+    justify-content: center;
+  }
+
+  .keyboardRow {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    width: 90%;
+    gap: 0.2rem;
+  }
+
+  .bigkeyboardKey {
+    width: 5.2rem;
+    height: 3rem;
+    background-color: rgb(81, 78, 78);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .keyboardBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 2rem 0;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .keyboardKey {
+    width: 2.4rem;
+    height: 2.6rem;
+    background-color: rgb(81, 78, 78);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    padding: 8px 0;
+    /* align-items: center; */
+    justify-content: center;
+  }
+
+  .keyboardRow {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    width: 90%;
+    gap: 0.2rem;
+  }
+
+  .bigkeyboardKey {
+    width: 5.2rem;
+    height: 2.6rem;
+    background-color: rgb(81, 78, 78);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .keyboardBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 2rem 0;
+    justify-content: center;
+    align-items: center;
+  }
+}
