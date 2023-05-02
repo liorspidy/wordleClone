@@ -61,7 +61,7 @@
 
 @media screen and (max-width: 545px) {
   .keyboardKey {
-    width: 2.4rem;
+    width: 2.6rem;
     height: 3rem;
     background-color: rgb(81, 78, 78);
     color: white;
@@ -106,7 +106,7 @@
   }
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 420px) {
   .keyboardKey {
     width: 2.4rem;
     height: 2.6rem;
