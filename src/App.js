@@ -66,7 +66,7 @@ function App() {
       <EndGamePrompt />
       <GameBoard />
       <Keyboard />
-      <div style={{ textAlign: "center" }}>
+      <div className="bottomText">
         <h6 style={{ fontSize: "0.6rem", margin: 0 }}>
           Made by Lior Fridman 2023
         </h6>

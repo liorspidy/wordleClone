@@ -11,3 +11,11 @@ body:not(.endGame) {
   background-color: rgb(41, 41, 41);
   color: white;
 }
+
+.bottomText {
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%);
+}
