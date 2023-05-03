@@ -57,38 +57,88 @@ const WordleRow = ({ index }) => {
     );
 
     // find the remaining letters that are not in the correct position of the pickedWord
+
+    // for (let i = 0; i < ROWS; i++) {
+    //   const letter = foundWord ? foundWord[i] : [];
+
+    //   if (
+    //     letter !== null &&
+    //     filteredArray.includes(letter) &&
+    //     !Object.keys(newCorrect).includes(i)
+    //   ) {
+    //     setAlmostLetters((prevAlmost) => {
+    //       if (!prevAlmost.hasOwnProperty(letter)) {
+    //         return {
+    //           ...prevAlmost,
+    //           [letter]: letter,
+    //         };
+    //       }
+    //       return prevAlmost;
+    //     });
+    //     setAlmost((prevAlmost) => ({ ...prevAlmost, [i]: letter }));
+    //   } else {
+    //     if (foundWord) {
+    //       setWrongLetters((prevWrong) => {
+    //         if (!prevWrong.hasOwnProperty(foundWord[i])) {
+    //           return {
+    //             ...prevWrong,
+    //             [foundWord[i]]: foundWord[i],
+    //           };
+    //         }
+    //         return prevWrong;
+    //       });
+    //       setWrong((prevWrong) => ({ ...prevWrong, [i]: foundWord[i] }));
+    //     }
+    //   }
+    // }
+
+    const equalLetters = {
+      ם: 'מ',
+      ן: 'נ',
+      ץ: 'צ',
+      ף: 'פ',
+      ך: 'כ',
+      מ: 'ם',
+      נ: 'ן',
+      צ: 'ץ',
+      פ: 'ף',
+      כ: 'ך',
+    };
+
     for (let i = 0; i < ROWS; i++) {
-      const letter = foundWord ? foundWord[i] : [];
-      if (
-        letter !== null &&
-        filteredArray.includes(letter) &&
-        !Object.keys(newCorrect).includes(i)
-      ) {
-        setAlmostLetters((prevAlmost) => {
-          if (!prevAlmost.hasOwnProperty(letter)) {
-            return {
-              ...prevAlmost,
-              [letter]: letter,
-            };
-          }
-          return prevAlmost;
-        });
-        setAlmost((prevAlmost) => ({ ...prevAlmost, [i]: letter }));
-      } else {
-        if (foundWord) {
-          setWrongLetters((prevWrong) => {
-            if (!prevWrong.hasOwnProperty(foundWord[i])) {
-              return {
-                ...prevWrong,
-                [foundWord[i]]: foundWord[i],
-              };
-            }
-            return prevWrong;
-          });
+      const letter = foundWord ? foundWord[i] : null;
+      if (letter !== null && !newCorrect[i]) {
+        const isLetterEqual =
+          equalLetters[letter] && filteredArray.includes(equalLetters[letter]);
+        if (filteredArray.includes(letter) || isLetterEqual) {
+          setAlmostLetters((prevAlmost) => ({
+            ...prevAlmost,
+            [letter]: letter,
+          }));
+          setAlmost((prevAlmost) => ({ ...prevAlmost, [i]: letter }));
+        } else {
+          setWrongLetters((prevWrong) => ({
+            ...prevWrong,
+            [foundWord[i]]: foundWord[i],
+          }));
           setWrong((prevWrong) => ({ ...prevWrong, [i]: foundWord[i] }));
         }
+      } else if (letter in equalLetters) {
+        setAlmostLetters((prevAlmost) => ({
+          ...prevAlmost,
+          [letter]: letter,
+        }));
+        setAlmost((prevAlmost) => ({ ...prevAlmost, [i]: letter }));
+      } else if (foundWord) {
+        setWrongLetters((prevWrong) => ({
+          ...prevWrong,
+          [foundWord[i]]: foundWord[i],
+        }));
+        setWrong((prevWrong) => ({ ...prevWrong, [i]: foundWord[i] }));
       }
     }
+
+    // --------------------------------------------
   }, [isCheckingWord]);
 
   useEffect(() => {
