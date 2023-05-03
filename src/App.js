@@ -8,6 +8,7 @@ import EndGamePrompt from './UI/EndGamePrompt';
 import Header from './UI/Header';
 import wordsDb from './words.json';
 import HowToPlay from './UI/HowToPlay';
+import Snackbar from './UI/Snackbar';
 
 function App() {
   const {
@@ -61,6 +62,7 @@ function App() {
 
   return (
     <div className={`App ${lightMode ? 'lightMode' : ''}`}>
+      <Snackbar />
       <Header
         lightMode={lightMode}
         showAddWord={showAddWord}

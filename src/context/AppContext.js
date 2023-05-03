@@ -25,6 +25,8 @@ export const AppContext = createContext({
   setCorrectLetters: () => {},
   almostLetters: {},
   setAlmostLetters: () => {},
+  wrongWord: false,
+  setWrongWord: () => {},
 });
 
 export const AppProvider = ({ children }) => {
@@ -40,10 +42,12 @@ export const AppProvider = ({ children }) => {
   const [endGame, setEndGame] = useState(false);
   const [startNewGame, setStartNewGame] = useState(false);
   const [showEndGame, setShowEndGame] = useState(false);
+  const [wrongWord, setWrongWord] = useState(false);
 
   const value = {
     pickedWord,
     currentWord,
+    wrongWord,
     currentRowIndex,
     isCheckingWord,
     foundWords,
@@ -66,6 +70,7 @@ export const AppProvider = ({ children }) => {
     setCorrectLetters,
     setWrongLetters,
     setAlmostLetters,
+    setWrongWord,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

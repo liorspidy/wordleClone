@@ -1,16 +1,17 @@
-import classes from "./Keyboard.module.css";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import wordsDb from "../../words.json";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import classes from './Keyboard.module.css';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import wordsDb from '../../words.json';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 const EnterKey = () => {
-  const { setIsCheckingWord, currentWord } = useContext(AppContext);
+  const { setIsCheckingWord, currentWord, setWrongWord } =
+    useContext(AppContext);
 
   const handleKeyPress = () => {
     if (currentWord.length === 5 && wordsDb.includes(currentWord)) {
       setIsCheckingWord(true);
     } else if (currentWord.length === 5 && !wordsDb.includes(currentWord)) {
-      alert("המילה הזו אינה נמצאת במילון");
+      setWrongWord(true);
     } else if (currentWord.length < 5) {
       return;
     }
