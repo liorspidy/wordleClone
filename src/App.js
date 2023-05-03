@@ -64,15 +64,19 @@ function App() {
       />
       <AddWord showAddWord={showAddWord} setShowAddWord={setShowAddWord} />
       <EndGamePrompt />
-      <GameBoard />
-      <Keyboard />
-      <div className="bottomText">
-        <h6 style={{ fontSize: "0.6rem", margin: 0 }}>
-          Made by Lior Fridman 2023
-        </h6>
-        <h6 style={{ fontSize: "0.6rem", margin: "0 auto", width: "20rem" }}>
-          Based on "Wordle" by Josh Wardle and The New York Times Company
-        </h6>
+      <div className="mainGame">
+        <div className="gameField">
+          <GameBoard />
+          <Keyboard />
+        </div>
+        <div className="bottomText">
+          <h6 style={{ fontSize: "0.6rem", margin: 0 }}>
+            Made by Lior Fridman 2023
+          </h6>
+          <h6 style={{ fontSize: "0.6rem", margin: "0 auto", width: "20rem" }}>
+            Based on "Wordle" by Josh Wardle and The New York Times
+          </h6>
+        </div>
       </div>
     </div>
   );

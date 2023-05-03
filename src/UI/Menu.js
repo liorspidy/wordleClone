@@ -8,7 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-
+import classes from "./Header.module.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
 
@@ -82,7 +82,7 @@ export default function SwipeableTemporaryDrawer() {
   );
 
   return (
-    <div>
+    <div className={classes.menuButton}>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button color="inherit" onClick={toggleDrawer(anchor, true)}>
