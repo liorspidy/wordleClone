@@ -62,7 +62,7 @@ function App() {
 
   return (
     <div className={`App ${lightMode ? 'lightMode' : ''}`}>
-      <Snackbar />
+      <Snackbar lightMode={lightMode} />
       <Header
         lightMode={lightMode}
         showAddWord={showAddWord}

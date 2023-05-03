@@ -9,7 +9,7 @@ function SlideTransition(props) {
   return <Slide {...props} direction="down" />;
 }
 
-export default function PositionedSnackbar() {
+export default function PositionedSnackbar({ lightMode }) {
   const { wrongWord, setWrongWord } = useContext(AppContext);
   const [state, setState] = useState({
     open: false,
@@ -52,6 +52,19 @@ export default function PositionedSnackbar() {
   }, [wrongWord]);
 
   useEffect(() => {
+    const snackbarSelector = '.MuiPaper-root';
+
+    const snackbar = document.querySelector(snackbarSelector);
+
+    if (snackbar) {
+      if (lightMode) {
+        snackbar.style.backgroundColor = 'white';
+        snackbar.style.color = 'black';
+      } else {
+        snackbar.style.backgroundColor = '';
+        snackbar.style.color = '';
+      }
+    }
     const timeout = setTimeout(() => {
       handleClose();
     }, 1000);
