@@ -6,8 +6,8 @@
 
 /* if in darkMode */
 
-body:not(.endGame) input,
-body:not(.endGame) {
+body:not(.light) input,
+body:not(.light) {
   background-color: rgb(41, 41, 41);
   color: white;
 }
@@ -31,8 +31,5 @@ body:not(.endGame) {
 
 .bottomText {
   text-align: center;
-  /* position: fixed;
-  left: 50%;
-  bottom: 10px;
-  transform: translate(-50%); */
+  width: 95%;
 }

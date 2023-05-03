@@ -5,8 +5,15 @@ import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import InfoIcon from '@mui/icons-material/Info';
 
-const Header = ({ setShowAddWord, showAddWord, setLightMode, lightMode }) => {
+const Header = ({
+  setShowAddWord,
+  showAddWord,
+  setLightMode,
+  lightMode,
+  setShowHowToPlay,
+}) => {
   const {
     setPickedWord,
     setGameState,
@@ -37,6 +44,12 @@ const Header = ({ setShowAddWord, showAddWord, setLightMode, lightMode }) => {
     });
   };
 
+  const howToPlayHandler = () => {
+    setShowHowToPlay((prevState) => {
+      return !prevState;
+    });
+  };
+
   return (
     <div className={classes.header}>
       <div className={classes.buttons}>
@@ -51,11 +64,14 @@ const Header = ({ setShowAddWord, showAddWord, setLightMode, lightMode }) => {
             <NightsStayIcon onClick={nightModeHandler} />
           </div>
         )}
+        <div className={classes.infoIcon}>
+          <InfoIcon onClick={howToPlayHandler} />
+        </div>
       </div>
       <div className={classes.gameTitle}>
         <h1>ליאוורדעל</h1>
       </div>
-      <div>
+      <div className={classes.rightButtons}>
         {/* <button className={classes.btn} onClick={showAddWordHandler}>
           הוסף מילה
         </button> */}

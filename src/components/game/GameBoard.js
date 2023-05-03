@@ -1,7 +1,7 @@
-import WordleRow from "./WordleRow";
-import classes from "./GameBoardStyle.module.css";
-import { useContext, useEffect } from "react";
-import { AppContext } from "../../context/AppContext";
+import WordleRow from './WordleRow';
+import classes from './GameBoardStyle.module.css';
+import { useContext, useEffect } from 'react';
+import { AppContext } from '../../context/AppContext';
 
 const GameBoard = () => {
   const {
@@ -17,7 +17,7 @@ const GameBoard = () => {
   useEffect(() => {
     if (isCheckingWord) {
       setFoundWords([...foundWords, currentWord]);
-      setCurrentWord("");
+      setCurrentWord('');
       setCurrentRowIndex((prevState) => {
         return prevState + 1;
       });
@@ -32,6 +32,7 @@ const GameBoard = () => {
       <WordleRow index="3" />
       <WordleRow index="4" />
       <WordleRow index="5" />
+      <WordleRow index="6" />
     </div>
   );
 };

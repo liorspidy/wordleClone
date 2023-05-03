@@ -68,11 +68,11 @@
   margin: 2rem 0;
 }
 
-@media screen and (max-width: 365px) {
+@media screen and (max-width: 376px) {
   .wordleBlock {
     border: 2px solid rgb(216, 216, 216);
-    width: 52px;
-    height: 52px;
+    width: 60px;
+    height: 60px;
     border-radius: 3px;
     display: flex;
     justify-content: center;
@@ -83,6 +83,10 @@
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
       "Helvetica Neue", sans-serif;
     color: black;
+  }
+
+  .wordleBox {
+    margin: 0.8rem 0;
   }
 }
 
