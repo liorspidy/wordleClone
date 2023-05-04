@@ -1,11 +1,12 @@
-import classes from './Header.module.css';
-import wordsDb from '../words.json';
-import Menu from './Menu';
-import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import InfoIcon from '@mui/icons-material/Info';
+import classes from "./Header.module.css";
+import wordsDb from "../merged_words.json";
+import Menu from "./Menu";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import InfoIcon from "@mui/icons-material/Info";
+import GameModes from "./GameModes";
 
 const Header = ({
   setShowAddWord,
@@ -27,15 +28,15 @@ const Header = ({
   // };
 
   const newGameHandler = (event) => {
-    localStorage.removeItem('pickedWord');
+    localStorage.removeItem("pickedWord");
     const rand = Math.floor(Math.random() * wordsDb.length);
     setPickedWord(wordsDb[rand]);
-    localStorage.setItem('pickedWord', wordsDb[rand]);
+    localStorage.setItem("pickedWord", wordsDb[rand]);
     setGameState(0);
     setCurrentRowIndex(1);
     setFoundWords([]);
     setStartNewGame(true);
-    setCurrentWord('');
+    setCurrentWord("");
   };
 
   const nightModeHandler = () => {
@@ -76,9 +77,12 @@ const Header = ({
           הוסף מילה
         </button> */}
 
-        <button className={classes.btn} onClick={newGameHandler}>
+        {/* <button className={classes.btn} onClick={newGameHandler}>
           משחק חדש
-        </button>
+        </button> */}
+        <div>
+          <GameModes />
+        </div>
       </div>
     </div>
   );

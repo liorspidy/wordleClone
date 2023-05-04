@@ -1,41 +1,67 @@
-import { useContext, useEffect, useState } from 'react';
-import './App.css';
-import GameBoard from './components/game/GameBoard';
-import Keyboard from './components/keyboard/Keyboard';
-import { AppContext } from './context/AppContext';
-import AddWord from './UI/AddWord';
-import EndGamePrompt from './UI/EndGamePrompt';
-import Header from './UI/Header';
-import wordsDb from './words.json';
-import HowToPlay from './UI/HowToPlay';
-import Snackbar from './UI/Snackbar';
+import { useContext, useEffect, useState } from "react";
+import "./App.css";
+import GameBoard from "./components/game/GameBoard";
+import Keyboard from "./components/keyboard/Keyboard";
+import { AppContext } from "./context/AppContext";
+import AddWord from "./UI/AddWord";
+import EndGamePrompt from "./UI/EndGamePrompt";
+import Header from "./UI/Header";
+import wordsDb from "./merged_words.json";
+import HowToPlay from "./UI/HowToPlay";
+import Snackbar from "./UI/Snackbar";
 
 function App() {
   const {
     setPickedWord,
     setGameState,
-    gameState,
+    gameMode,
     foundWords,
+    setFoundWords,
     pickedWord,
     isCheckingWord,
     setShowEndGame,
+    setCurrentRowIndex,
+    setGameMode,
   } = useContext(AppContext);
 
   const [showAddWord, setShowAddWord] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lightMode, setLightMode] = useState(false);
 
+  useEffect(() => {
+    const localGameMode = localStorage.getItem("gameMode");
+    if (localGameMode === "infinity") {
+      setGameMode(localGameMode);
+    }
+  }, []);
+
   //sets the infinite picked word
   useEffect(() => {
-    const storedWord = localStorage.getItem('pickedWord');
-    if (storedWord) {
-      setPickedWord(storedWord);
-    } else {
-      const rand = Math.floor(Math.random() * wordsDb.length);
-      setPickedWord(wordsDb[rand]);
-      localStorage.setItem('pickedWord', wordsDb[rand]);
+    if (gameMode === "infinty") {
+      const storedWord = localStorage.getItem("pickedWord");
+      if (storedWord) {
+        setPickedWord(storedWord);
+      } else {
+        const rand = Math.floor(Math.random() * wordsDb.length);
+        setPickedWord(wordsDb[rand]);
+        localStorage.setItem("pickedWord", wordsDb[rand]);
+      }
+    } else if (gameMode === "daily") {
+      const storedWord = localStorage.getItem("dailyPickedWord");
+      const dailyWordsFound = JSON.parse(
+        localStorage.getItem("dailyFoundWords")
+      );
+      const currentRowIndex = localStorage.getItem("currentRowIndex");
+      if (storedWord && dailyWordsFound && currentRowIndex) {
+        setPickedWord(storedWord);
+        setFoundWords(dailyWordsFound);
+        setCurrentRowIndex(currentRowIndex);
+      } else {
+        setPickedWord("אתמול");
+        localStorage.setItem("dailyPickedWord", "אתמול");
+      }
     }
-  }, [setPickedWord]);
+  }, [setPickedWord, gameMode]);
 
   // ends the game if the user got the wrong answer
   useEffect(() => {
@@ -52,16 +78,16 @@ function App() {
   // sets the lightmode
   useEffect(() => {
     if (lightMode) {
-      document.body.classList.remove('light');
+      document.body.classList.remove("light");
       // localStorage.setItem("lightMode", "0");
     } else {
-      document.body.classList.add('light');
+      document.body.classList.add("light");
       // localStorage.setItem("lightMode", "1");
     }
   }, [lightMode]);
 
   return (
-    <div className={`App ${lightMode ? 'lightMode' : ''}`}>
+    <div className={`App ${lightMode ? "lightMode" : ""}`}>
       <Snackbar lightMode={lightMode} />
       <Header
         lightMode={lightMode}
@@ -82,10 +108,10 @@ function App() {
           <Keyboard />
         </div>
         <div className="bottomText">
-          <h6 style={{ fontSize: '0.6rem', margin: 0 }}>
+          <h6 style={{ fontSize: "0.6rem", margin: 0 }}>
             Made by Lior Fridman 2023
           </h6>
-          <h6 style={{ fontSize: '0.6rem', margin: '0 auto', width: '20rem' }}>
+          <h6 style={{ fontSize: "0.6rem", margin: "0 auto", width: "20rem" }}>
             Based on "Wordle" by Josh Wardle and The New York Times
           </h6>
         </div>

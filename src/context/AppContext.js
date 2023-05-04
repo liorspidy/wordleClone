@@ -1,9 +1,9 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
 export const AppContext = createContext({
-  pickedWord: '',
+  pickedWord: "",
   setPickedWord: () => {},
-  currentWord: '',
+  currentWord: "",
   setCurrentWord: () => {},
   currentRowIndex: 1,
   setCurrentRowIndex: () => {},
@@ -27,11 +27,13 @@ export const AppContext = createContext({
   setAlmostLetters: () => {},
   wrongWord: false,
   setWrongWord: () => {},
+  gameMode: "daily",
+  setGameMode: () => {},
 });
 
 export const AppProvider = ({ children }) => {
-  const [pickedWord, setPickedWord] = useState('');
-  const [currentWord, setCurrentWord] = useState('');
+  const [pickedWord, setPickedWord] = useState("");
+  const [currentWord, setCurrentWord] = useState("");
   const [currentRowIndex, setCurrentRowIndex] = useState(1);
   const [isCheckingWord, setIsCheckingWord] = useState(false);
   const [foundWords, setFoundWords] = useState([]);
@@ -43,6 +45,7 @@ export const AppProvider = ({ children }) => {
   const [startNewGame, setStartNewGame] = useState(false);
   const [showEndGame, setShowEndGame] = useState(false);
   const [wrongWord, setWrongWord] = useState(false);
+  const [gameMode, setGameMode] = useState("daily");
 
   const value = {
     pickedWord,
@@ -58,6 +61,7 @@ export const AppProvider = ({ children }) => {
     correctLetters,
     wrongLetters,
     almostLetters,
+    gameMode,
     setPickedWord,
     setCurrentWord,
     setCurrentRowIndex,
@@ -71,6 +75,7 @@ export const AppProvider = ({ children }) => {
     setWrongLetters,
     setAlmostLetters,
     setWrongWord,
+    setGameMode,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
