@@ -6,7 +6,7 @@ import { AppContext } from "./context/AppContext";
 import AddWord from "./UI/AddWord";
 import EndGamePrompt from "./UI/EndGamePrompt";
 import Header from "./UI/Header";
-import wordsDb from "./merged_words.json";
+import wordsDb from "./words.json";
 import HowToPlay from "./UI/HowToPlay";
 import Snackbar from "./UI/Snackbar";
 
@@ -14,54 +14,28 @@ function App() {
   const {
     setPickedWord,
     setGameState,
-    gameMode,
+    gameState,
     foundWords,
-    setFoundWords,
     pickedWord,
     isCheckingWord,
     setShowEndGame,
-    setCurrentRowIndex,
-    setGameMode,
   } = useContext(AppContext);
 
   const [showAddWord, setShowAddWord] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lightMode, setLightMode] = useState(false);
 
-  useEffect(() => {
-    const localGameMode = localStorage.getItem("gameMode");
-    if (localGameMode === "infinity") {
-      setGameMode(localGameMode);
-    }
-  }, []);
-
   //sets the infinite picked word
   useEffect(() => {
-    if (gameMode === "infinty") {
-      const storedWord = localStorage.getItem("pickedWord");
-      if (storedWord) {
-        setPickedWord(storedWord);
-      } else {
-        const rand = Math.floor(Math.random() * wordsDb.length);
-        setPickedWord(wordsDb[rand]);
-        localStorage.setItem("pickedWord", wordsDb[rand]);
-      }
-    } else if (gameMode === "daily") {
-      const storedWord = localStorage.getItem("dailyPickedWord");
-      const dailyWordsFound = JSON.parse(
-        localStorage.getItem("dailyFoundWords")
-      );
-      const currentRowIndex = localStorage.getItem("currentRowIndex");
-      if (storedWord && dailyWordsFound && currentRowIndex) {
-        setPickedWord(storedWord);
-        setFoundWords(dailyWordsFound);
-        setCurrentRowIndex(currentRowIndex);
-      } else {
-        setPickedWord("אתמול");
-        localStorage.setItem("dailyPickedWord", "אתמול");
-      }
+    const storedWord = localStorage.getItem("pickedWord");
+    if (storedWord) {
+      setPickedWord(storedWord);
+    } else {
+      const rand = Math.floor(Math.random() * wordsDb.length);
+      setPickedWord(wordsDb[rand]);
+      localStorage.setItem("pickedWord", wordsDb[rand]);
     }
-  }, [setPickedWord, gameMode]);
+  }, [setPickedWord]);
 
   // ends the game if the user got the wrong answer
   useEffect(() => {

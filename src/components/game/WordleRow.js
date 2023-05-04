@@ -9,7 +9,6 @@ const WordleRow = ({ index }) => {
     currentWord,
     currentRowIndex,
     foundWords,
-    gameMode,
     startNewGame,
     isCheckingWord,
     setGameState,
@@ -18,79 +17,30 @@ const WordleRow = ({ index }) => {
     setCorrectLetters,
     setWrongLetters,
     setAlmostLetters,
-    setFoundWords,
-    setCurrentRowIndex,
   } = useContext(AppContext);
   const [correct, setCorrect] = useState({});
   const [almost, setAlmost] = useState({});
   const [wrong, setWrong] = useState({});
-  const [foundWord, setFoundWord] = useState([]);
 
   const items = currentWord.split("");
-
-  useEffect(() => {
-    if (gameMode === "daily") {
-      const localFoundWordsArray = JSON.parse(
-        localStorage.getItem("dailyFoundWords")
-      );
-      const localCurrentRowIndex = localStorage.getItem("currentRowIndex");
-      const localCorrect = JSON.parse(localStorage.getItem("correct"));
-      const localAlmost = JSON.parse(localStorage.getItem("almost"));
-      const localWrong = JSON.parse(localStorage.getItem("wrong"));
-      if (localFoundWordsArray && localCurrentRowIndex) {
-        setFoundWords(localFoundWordsArray);
-        setCurrentRowIndex(localCurrentRowIndex);
-        setFoundWord(
-          localFoundWordsArray[index - 1]
-            ? localFoundWordsArray[index - 1]?.split("")
-            : []
-        );
-        setCorrect(localCorrect ? localCorrect : {});
-        setAlmost(localAlmost ? localAlmost : {});
-        setWrong(localWrong ? localWrong : {});
-      }
-    } else if (gameMode === "infinity") {
-      setFoundWords([]);
-      setCurrentRowIndex(1);
-      setFoundWord([]);
-      setCorrect({});
-      setAlmost({});
-      setWrong({});
-      setWrongLetters({});
-      setCorrectLetters({});
-      setAlmostLetters({});
-    }
-  }, [gameMode]);
-
-  // console.log(correct, almost, wrong, foundWord, foundWords, currentRowIndex);
+  const foundWord = foundWords[index - 1]?.split("");
 
   useEffect(() => {
     const pickedArray = pickedWord.split("");
     let counter = 0;
     const newCorrect = {};
     for (let i = 0; i < ROWS; i++) {
-      console.log(foundWord[i]);
-      if (foundWord.length && foundWord[i] === pickedArray[i]) {
+      if (foundWord && foundWord[i] === pickedArray[i]) {
         newCorrect[i] = foundWord[i];
         setCorrectLetters((prevCorrect) => {
           if (!prevCorrect.hasOwnProperty(foundWord[i])) {
-            if (gameMode === "daily") {
-              localStorage.setItem(
-                "correct",
-                JSON.stringify({
-                  ...prevCorrect,
-                  [foundWord[i]]: foundWord[i],
-                })
-              );
-            }
             return {
               ...prevCorrect,
               [foundWord[i]]: foundWord[i],
             };
           }
-          return;
+          return prevCorrect;
         });
-
         counter++;
         if (counter === ROWS) {
           setTimeout(() => {
@@ -106,6 +56,42 @@ const WordleRow = ({ index }) => {
       (letter, index) => !newCorrect[index] || newCorrect[index] !== letter
     );
 
+    // find the remaining letters that are not in the correct position of the pickedWord
+
+    // for (let i = 0; i < ROWS; i++) {
+    //   const letter = foundWord ? foundWord[i] : [];
+
+    //   if (
+    //     letter !== null &&
+    //     filteredArray.includes(letter) &&
+    //     !Object.keys(newCorrect).includes(i)
+    //   ) {
+    //     setAlmostLetters((prevAlmost) => {
+    //       if (!prevAlmost.hasOwnProperty(letter)) {
+    //         return {
+    //           ...prevAlmost,
+    //           [letter]: letter,
+    //         };
+    //       }
+    //       return prevAlmost;
+    //     });
+    //     setAlmost((prevAlmost) => ({ ...prevAlmost, [i]: letter }));
+    //   } else {
+    //     if (foundWord) {
+    //       setWrongLetters((prevWrong) => {
+    //         if (!prevWrong.hasOwnProperty(foundWord[i])) {
+    //           return {
+    //             ...prevWrong,
+    //             [foundWord[i]]: foundWord[i],
+    //           };
+    //         }
+    //         return prevWrong;
+    //       });
+    //       setWrong((prevWrong) => ({ ...prevWrong, [i]: foundWord[i] }));
+    //     }
+    //   }
+    // }
+
     const equalLetters = {
       ם: "מ",
       ן: "נ",
@@ -120,7 +106,7 @@ const WordleRow = ({ index }) => {
     };
 
     for (let i = 0; i < ROWS; i++) {
-      const letter = foundWord.length ? foundWord[i] : null;
+      const letter = foundWord ? foundWord[i] : null;
       if (letter !== null && !newCorrect[i]) {
         const isLetterEqual =
           equalLetters[letter] && filteredArray.includes(equalLetters[letter]);
@@ -143,7 +129,7 @@ const WordleRow = ({ index }) => {
           [letter]: letter,
         }));
         setAlmost((prevAlmost) => ({ ...prevAlmost, [i]: letter }));
-      } else if (foundWord.length) {
+      } else if (foundWord) {
         setWrongLetters((prevWrong) => ({
           ...prevWrong,
           [foundWord[i]]: foundWord[i],
@@ -153,10 +139,10 @@ const WordleRow = ({ index }) => {
     }
 
     // --------------------------------------------
-  }, [isCheckingWord, gameMode]);
+  }, [isCheckingWord]);
 
   useEffect(() => {
-    if (startNewGame && gameMode === "infinity") {
+    if (startNewGame) {
       setCorrect({});
       setAlmost({});
       setWrong({});
@@ -165,21 +151,17 @@ const WordleRow = ({ index }) => {
       setCorrectLetters({});
       setAlmostLetters({});
     }
-  }, [startNewGame, gameMode]);
-
-  const correctlength = Object.keys(correct).length;
-  const almostlength = Object.keys(almost).length;
-  const wronglength = Object.keys(wrong).length;
+  }, [startNewGame]);
 
   return (
     <div className={classes.wordleRow}>
       <div
         className={`${classes.wordleBlock} ${
-          foundWord.length && correctlength && correct[4] === foundWord[4]
+          foundWord && correct[4] === foundWord[4]
             ? classes.correct
-            : foundWord.length && almostlength && almost[4] === foundWord[4]
+            : foundWord && almost[4] === foundWord[4]
             ? classes.almost
-            : foundWord.length && wronglength && wrong[4] === foundWord[4]
+            : foundWord && wrong[4] === foundWord[4]
             ? classes.wrong
             : ""
         }`}
@@ -192,11 +174,11 @@ const WordleRow = ({ index }) => {
       </div>
       <div
         className={`${classes.wordleBlock} ${
-          foundWord.length && correctlength && correct[3] === foundWord[3]
+          foundWord && correct[3] === foundWord[3]
             ? classes.correct
-            : foundWord.length && almostlength && almost[3] === foundWord[3]
+            : foundWord && almost[3] === foundWord[3]
             ? classes.almost
-            : foundWord.length && wronglength && wrong[3] === foundWord[3]
+            : foundWord && wrong[3] === foundWord[3]
             ? classes.wrong
             : ""
         }`}
@@ -209,11 +191,11 @@ const WordleRow = ({ index }) => {
       </div>
       <div
         className={`${classes.wordleBlock} ${
-          foundWord.length && correctlength && correct[2] === foundWord[2]
+          foundWord && correct[2] === foundWord[2]
             ? classes.correct
-            : foundWord.length && almostlength && almost[2] === foundWord[2]
+            : foundWord && almost[2] === foundWord[2]
             ? classes.almost
-            : foundWord.length && wronglength && wrong[2] === foundWord[2]
+            : foundWord && wrong[2] === foundWord[2]
             ? classes.wrong
             : ""
         }`}
@@ -226,11 +208,11 @@ const WordleRow = ({ index }) => {
       </div>
       <div
         className={`${classes.wordleBlock} ${
-          foundWord.length && correctlength && correct[1] === foundWord[1]
+          foundWord && correct[1] === foundWord[1]
             ? classes.correct
-            : foundWord.length && almostlength && almost[1] === foundWord[1]
+            : foundWord && almost[1] === foundWord[1]
             ? classes.almost
-            : foundWord.length && wronglength && wrong[1] === foundWord[1]
+            : foundWord && wrong[1] === foundWord[1]
             ? classes.wrong
             : ""
         }`}
@@ -243,11 +225,11 @@ const WordleRow = ({ index }) => {
       </div>
       <div
         className={`${classes.wordleBlock} ${
-          foundWord.length && correctlength && correct[0] === foundWord[0]
+          foundWord && correct[0] === foundWord[0]
             ? classes.correct
-            : foundWord.length && almostlength && almost[0] === foundWord[0]
+            : foundWord && almost[0] === foundWord[0]
             ? classes.almost
-            : foundWord.length && wronglength && wrong[0] === foundWord[0]
+            : foundWord && wrong[0] === foundWord[0]
             ? classes.wrong
             : ""
         }`}
