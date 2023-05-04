@@ -1,8 +1,8 @@
-import classes from './Keyboard.module.css';
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import wordsDb from '../../words.json';
-import { useContext } from 'react';
-import { AppContext } from '../../context/AppContext';
+import classes from "./Keyboard.module.css";
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import wordsDb from "../../merged_words.json";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 const EnterKey = () => {
   const { setIsCheckingWord, currentWord, setWrongWord } =
     useContext(AppContext);

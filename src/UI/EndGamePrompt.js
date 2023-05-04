@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import Card from './Card';
 import classes from './Card.module.css';
-import wordsDb from '../words.json';
+import wordsDb from '../merged_words.json';
 
 const EndGamePrompt = () => {
   const {

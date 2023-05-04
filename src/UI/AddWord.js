@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Card from "./Card";
 import classes from "./Card.module.css";
-import wordsDb from "../words.json";
+import wordsDb from "../merged_words.json";
 
 const AddWord = ({ setShowAddWord, showAddWord }) => {
   const [addWordVal, setAddWordVal] = useState("");

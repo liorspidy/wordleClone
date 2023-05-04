@@ -1,7 +1,7 @@
-import WordleRow from './WordleRow';
-import classes from './GameBoardStyle.module.css';
-import { useContext, useEffect } from 'react';
-import { AppContext } from '../../context/AppContext';
+import WordleRow from "./WordleRow";
+import classes from "./GameBoardStyle.module.css";
+import { useContext, useEffect } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const GameBoard = () => {
   const {
@@ -9,18 +9,30 @@ const GameBoard = () => {
     setCurrentWord,
     foundWords,
     isCheckingWord,
+    currentRowIndex,
     setIsCheckingWord,
     setFoundWords,
     setCurrentRowIndex,
+    gameMode,
   } = useContext(AppContext);
 
   useEffect(() => {
     if (isCheckingWord) {
       setFoundWords([...foundWords, currentWord]);
-      setCurrentWord('');
+      if (gameMode === "daily") {
+        const foundWordsArray = [...foundWords, currentWord];
+        localStorage.setItem(
+          "dailyFoundWords",
+          JSON.stringify(foundWordsArray)
+        );
+      }
+      setCurrentWord("");
       setCurrentRowIndex((prevState) => {
         return prevState + 1;
       });
+      if (gameMode === "daily") {
+        localStorage.setItem("currentRowIndex", currentRowIndex + 1);
+      }
       setIsCheckingWord(false);
     }
   }, [isCheckingWord]);

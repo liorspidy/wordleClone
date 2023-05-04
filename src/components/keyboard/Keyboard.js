@@ -2,7 +2,7 @@ import KeyboardKey from './KeyboardKey';
 import classes from './Keyboard.module.css';
 import BackspaceKey from './BackspaceKey';
 import EnterKey from './EnterKey';
-import wordsDb from '../../words.json';
+import wordsDb from '../../merged_words.json';
 import { useContext, useRef } from 'react';
 import { AppContext } from '../../context/AppContext';
 
