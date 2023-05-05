@@ -8,6 +8,7 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import "./Snackbar.css";
 import { AppContext } from "../context/AppContext";
+import wordsDb from "../merged_words.json";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -54,7 +55,17 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { setGameMode } = React.useContext(AppContext);
+  const {
+    setGameMode,
+    setAlmostLetters,
+    setCorrectLetters,
+    setWrongLetters,
+    gameMode,
+    setFoundWords,
+    setCurrentRowIndex,
+    setGameState,
+    setPickedWord,
+  } = React.useContext(AppContext);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,12 +78,28 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
     setGameMode("daily");
     localStorage.setItem("gameMode", "daily");
+    if (gameMode !== "daily") {
+      setAlmostLetters({});
+      setWrongLetters({});
+      setCorrectLetters({});
+      setFoundWords([]);
+    }
   };
 
   const InfinityHndler = () => {
     setAnchorEl(null);
     setGameMode("infinity");
     localStorage.setItem("gameMode", "infinity");
+    setAlmostLetters({});
+    setWrongLetters({});
+    setCorrectLetters({});
+    setCurrentRowIndex(1);
+    setFoundWords([]);
+    setGameState(0);
+    localStorage.removeItem("pickedWord");
+    const rand = Math.floor(Math.random() * wordsDb.length);
+    setPickedWord(wordsDb[rand]);
+    localStorage.setItem("pickedWord", wordsDb[rand]);
   };
 
   return (
@@ -86,8 +113,9 @@ export default function CustomizedMenus() {
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        // color="primary"
       >
-        משחק חדש
+        מצב משחק
       </Button>
       <StyledMenu
         id="demo-customized-menu"

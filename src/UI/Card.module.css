@@ -73,7 +73,7 @@
 }
 
 .howToPlayModule {
-  width: 20rem;
+  max-width: 20rem;
 }
 
 .closeModuleBox {
@@ -81,6 +81,7 @@
   direction: ltr;
   color: black;
   text-align: center;
+  margin-bottom: 0.2rem;
 }
 
 .closeModule {
@@ -104,19 +105,27 @@
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-.gameRules {
+.gameRules,
+.gameModes {
   color: black;
+}
+
+.gameRules {
+  height: 70vh;
+  overflow: auto;
 }
 
 .gameRules h2 {
   margin-top: 0;
 }
 
-.rulesList ul {
+.rulesList ul,
+.gameModes ul {
   padding: 0 1.5rem;
 }
 
-.rulesList li {
+.rulesList li,
+.gameModes li {
   font-size: 0.86rem;
   margin: 0.5rem 0;
 }
@@ -138,9 +147,9 @@
   padding: 3px 0;
   font-size: 1.7rem;
   font-weight: bold;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   color: black;
 }
 

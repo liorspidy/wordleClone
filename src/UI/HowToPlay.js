@@ -1,6 +1,6 @@
-import Card from './Card';
-import classes from './Card.module.css';
-import CloseIcon from '@mui/icons-material/Close';
+import Card from "./Card";
+import classes from "./Card.module.css";
+import CloseIcon from "@mui/icons-material/Close";
 const HowToPlay = ({ setShowHowToPlay, showHowToPlay }) => {
   const howToPlayHandler = (event) => {
     event.stopPropagation();
@@ -9,7 +9,7 @@ const HowToPlay = ({ setShowHowToPlay, showHowToPlay }) => {
 
   return (
     <div
-      className={`${classes.backdrop} ${showHowToPlay ? classes.show : ''}`}
+      className={`${classes.backdrop} ${showHowToPlay ? classes.show : ""}`}
       onClick={() => setShowHowToPlay(false)}
     >
       <Card onClick={(event) => event.stopPropagation()}>
@@ -69,6 +69,17 @@ const HowToPlay = ({ setShowHowToPlay, showHowToPlay }) => {
               <div className={classes.exampleBlock}>ק</div>
             </div>
             <p>* האות ד' לא נמצאת במילה *</p>
+            <div className={classes.gameModes}>
+              <h3>מצבי משחק:</h3>
+              <ul>
+                <li>
+                  ניתן לבחור בין מצבי המשחק על ידי לחיצה על "מצב משחק" מצד ימין
+                  למעלה
+                </li>
+                <li>ניתן לעבור באופן חופשי בין משחק יומי למשחק אינסופי.</li>
+                <li>כל לחיצה על "משחק אינסופי" תחדש את המילה הנדרשת לגילוי.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </Card>

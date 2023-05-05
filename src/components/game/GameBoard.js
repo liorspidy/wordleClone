@@ -20,7 +20,13 @@ const GameBoard = () => {
     if (isCheckingWord) {
       setFoundWords([...foundWords, currentWord]);
       if (gameMode === "daily") {
-        const foundWordsArray = [...foundWords, currentWord];
+        const localFoundWords = JSON.parse(
+          localStorage.getItem("dailyFoundWords")
+        );
+        const foundWordsArray =
+          localFoundWords && gameMode === "daily"
+            ? [...localFoundWords, currentWord]
+            : [...foundWords, currentWord];
         localStorage.setItem(
           "dailyFoundWords",
           JSON.stringify(foundWordsArray)
@@ -35,7 +41,7 @@ const GameBoard = () => {
       }
       setIsCheckingWord(false);
     }
-  }, [isCheckingWord]);
+  }, [isCheckingWord, gameMode]);
 
   return (
     <div className={classes.wordleBox}>

@@ -1,5 +1,4 @@
 import classes from "./Header.module.css";
-import wordsDb from "../merged_words.json";
 import Menu from "./Menu";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
@@ -15,29 +14,11 @@ const Header = ({
   lightMode,
   setShowHowToPlay,
 }) => {
-  const {
-    setPickedWord,
-    setGameState,
-    setCurrentRowIndex,
-    setFoundWords,
-    setStartNewGame,
-    setCurrentWord,
-  } = useContext(AppContext);
+  const { gameMode } = useContext(AppContext);
+
   // const showAddWordHandler = () => {
   //   setShowAddWord(true);
   // };
-
-  const newGameHandler = (event) => {
-    localStorage.removeItem("pickedWord");
-    const rand = Math.floor(Math.random() * wordsDb.length);
-    setPickedWord(wordsDb[rand]);
-    localStorage.setItem("pickedWord", wordsDb[rand]);
-    setGameState(0);
-    setCurrentRowIndex(1);
-    setFoundWords([]);
-    setStartNewGame(true);
-    setCurrentWord("");
-  };
 
   const nightModeHandler = () => {
     setLightMode((prevState) => {
@@ -70,16 +51,9 @@ const Header = ({
         </div>
       </div>
       <div className={classes.gameTitle}>
-        <h1>ליאוורדעל</h1>
+        <b>וורדעל + </b>| {gameMode === "daily" ? "יומי" : "אינסופי"}
       </div>
       <div className={classes.rightButtons}>
-        {/* <button className={classes.btn} onClick={showAddWordHandler}>
-          הוסף מילה
-        </button> */}
-
-        {/* <button className={classes.btn} onClick={newGameHandler}>
-          משחק חדש
-        </button> */}
         <div>
           <GameModes />
         </div>

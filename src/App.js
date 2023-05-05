@@ -6,36 +6,120 @@ import { AppContext } from "./context/AppContext";
 import AddWord from "./UI/AddWord";
 import EndGamePrompt from "./UI/EndGamePrompt";
 import Header from "./UI/Header";
-import wordsDb from "./words.json";
+import wordsDb from "./merged_words.json";
 import HowToPlay from "./UI/HowToPlay";
 import Snackbar from "./UI/Snackbar";
+import CryptoJS from "crypto-js";
 
 function App() {
   const {
     setPickedWord,
     setGameState,
-    gameState,
+    gameMode,
     foundWords,
     pickedWord,
     isCheckingWord,
+    setStartNewGame,
     setShowEndGame,
+    setFoundWords,
+    setCorrectLetters,
+    setAlmostLetters,
+    setWrongLetters,
+    setCurrentRowIndex,
   } = useContext(AppContext);
 
   const [showAddWord, setShowAddWord] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lightMode, setLightMode] = useState(false);
-
-  //sets the infinite picked word
+  const [timeToNextWord, setTimeToNextWord] = useState("");
   useEffect(() => {
-    const storedWord = localStorage.getItem("pickedWord");
-    if (storedWord) {
-      setPickedWord(storedWord);
-    } else {
-      const rand = Math.floor(Math.random() * wordsDb.length);
-      setPickedWord(wordsDb[rand]);
-      localStorage.setItem("pickedWord", wordsDb[rand]);
+    const updateTimeToNextWord = () => {
+      const now = new Date();
+      const threeAMToday = new Date(now);
+      threeAMToday.setHours(3, 0, 0, 0);
+      const timeUntil3AM = threeAMToday.getTime() - now.getTime();
+      if (timeUntil3AM < 0) {
+        threeAMToday.setDate(threeAMToday.getDate() + 1);
+      }
+      const timeToNext3AM = threeAMToday.getTime() - now.getTime();
+      const hours = Math.floor(timeToNext3AM / (60 * 60 * 1000));
+      const minutes = Math.floor(
+        (timeToNext3AM % (60 * 60 * 1000)) / (60 * 1000)
+      );
+      const seconds = Math.floor((timeToNext3AM % (60 * 1000)) / 1000);
+      setTimeToNextWord(
+        `${hours.toString().padStart(2, "0")}:${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
+      );
+      if (hours === 0 && minutes === 0 && seconds === 0) {
+        updateDailyWord();
+      }
+    };
+
+    updateTimeToNextWord();
+    const intervalId = setInterval(updateTimeToNextWord, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const createNewDailyWord = () => {
+    const dailyWord = getDailyValue();
+    localStorage.setItem("dailyPickedWord", dailyWord);
+    localStorage.removeItem("currentRowIndex");
+    localStorage.removeItem("dailyFoundWords");
+    setFoundWords([]);
+    setAlmostLetters({});
+    setCorrectLetters({});
+    setWrongLetters({});
+    setGameState(0);
+    setShowEndGame(false);
+    setCurrentRowIndex(1);
+    return dailyWord;
+  };
+
+  const updateDailyWord = () => {
+    setPickedWord(createNewDailyWord());
+  };
+
+  // Helper function to generate the daily value
+  const getDailyValue = () => {
+    const seed = new Date().toISOString().slice(0, 10);
+    const hash = CryptoJS.SHA256(seed.toString()).toString();
+    const multiplier = 1664525;
+    const increment = 1013904223;
+    const modulus = Math.pow(2, 32);
+    let index = parseInt(hash.slice(-1), 16) % wordsDb.length;
+    for (let i = 0; i < 13; i++) {
+      index = (multiplier * index + increment) % modulus;
     }
-  }, [setPickedWord]);
+    return wordsDb[index % wordsDb.length];
+  };
+
+  //sets the picked word
+  useEffect(() => {
+    const localGameMode = localStorage.getItem("gameMode");
+    if (gameMode === "daily") {
+      const dailyStoredWord = localStorage.getItem("dailyPickedWord");
+      if (dailyStoredWord && localGameMode === "daily") {
+        setPickedWord(dailyStoredWord);
+      } else {
+        const daily = createNewDailyWord();
+        setPickedWord(daily);
+        localStorage.setItem("gameMode", "daily");
+      }
+    } else if (gameMode === "infinity") {
+      setStartNewGame(true);
+      const storedWord = localStorage.getItem("pickedWord");
+      if (storedWord && localGameMode === "infinity") {
+        setPickedWord(storedWord);
+      } else {
+        const rand = Math.floor(Math.random() * wordsDb.length);
+        setPickedWord(wordsDb[rand]);
+        localStorage.setItem("pickedWord", wordsDb[rand]);
+        localStorage.setItem("gameMode", "infinity");
+      }
+    }
+  }, [setPickedWord, gameMode]);
 
   // ends the game if the user got the wrong answer
   useEffect(() => {
@@ -47,7 +131,14 @@ function App() {
       }, 300);
       return () => clearTimeout(timeout);
     }
-  }, [foundWords, pickedWord, isCheckingWord, setGameState, setShowEndGame]);
+  }, [
+    foundWords,
+    pickedWord,
+    isCheckingWord,
+    setGameState,
+    setShowEndGame,
+    gameMode,
+  ]);
 
   // sets the lightmode
   useEffect(() => {
@@ -75,7 +166,7 @@ function App() {
         showHowToPlay={showHowToPlay}
         setShowHowToPlay={setShowHowToPlay}
       />
-      <EndGamePrompt />
+      <EndGamePrompt timeToNextWord={timeToNextWord} />
       <div className="mainGame">
         <div className="gameField">
           <GameBoard />

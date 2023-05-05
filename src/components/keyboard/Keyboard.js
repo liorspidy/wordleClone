@@ -17,6 +17,7 @@ const Keyboard = () => {
     wrongLetters,
     almostLetters,
     setWrongWord,
+    gameState,
   } = useContext(AppContext);
 
   const handleKeyPress = (event) => {
@@ -32,14 +33,14 @@ const Keyboard = () => {
   };
 
   window.addEventListener("keypress", () => {
-    inputRef?.current.focus();
+    inputRef?.current?.focus();
   });
 
   const inputHandler = (event) => {
     const hebrewLettersPattern = /^[\u0590-\u05FF\s]*$/; // regex pattern for Hebrew letters or an empty string
     if (hebrewLettersPattern.test(event.target.value)) {
       try {
-        if (event.target.value.length < 5) {
+        if (event.target.value.length < 5 && gameState === 0) {
           let newChar;
           const lastChar = event.target.value.slice(-1);
           switch (lastChar) {
@@ -63,7 +64,7 @@ const Keyboard = () => {
               break;
           }
           setCurrentWord(newChar);
-        } else if (event.target.value.length === 5) {
+        } else if (event.target.value.length === 5 && gameState === 0) {
           let newChar;
           const lastChar = event.target.value.slice(-1);
           switch (lastChar) {
