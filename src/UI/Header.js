@@ -1,11 +1,11 @@
 import classes from "./Header.module.css";
 import Menu from "./Menu";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import InfoIcon from "@mui/icons-material/Info";
-import GameModes from "./GameModes";
+import GameModesButtons from "./GameModesButtons";
 
 const Header = ({
   setShowAddWord,
@@ -15,6 +15,7 @@ const Header = ({
   setShowHowToPlay,
 }) => {
   const { gameMode } = useContext(AppContext);
+  const [showGameModes, setShowGameModes] = useState(false);
 
   // const showAddWordHandler = () => {
   //   setShowAddWord(true);
@@ -54,9 +55,10 @@ const Header = ({
         <b>וורדעל + </b>| {gameMode === "daily" ? "יומי" : "אינסופי"}
       </div>
       <div className={classes.rightButtons}>
-        <div>
-          <GameModes />
-        </div>
+        <GameModesButtons
+          showGameModes={showGameModes}
+          setShowGameModes={setShowGameModes}
+        />
       </div>
     </div>
   );

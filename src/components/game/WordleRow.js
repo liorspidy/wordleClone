@@ -3,7 +3,6 @@ import { AppContext } from "../../context/AppContext";
 import classes from "./GameBoardStyle.module.css";
 
 const WordleRow = ({ index }) => {
-  const ROWS = 6;
   const {
     pickedWord,
     currentWord,
@@ -21,6 +20,7 @@ const WordleRow = ({ index }) => {
     setFoundWords,
     setCurrentRowIndex,
   } = useContext(AppContext);
+
   const [correct, setCorrect] = useState({});
   const [almost, setAlmost] = useState({});
   const [wrong, setWrong] = useState({});
@@ -45,7 +45,7 @@ const WordleRow = ({ index }) => {
     }
     let counter = 0;
     const newCorrect = {};
-    for (let i = 0; i < ROWS; i++) {
+    for (let i = 0; i < 5; i++) {
       if (foundWord && foundWord[i] === pickedArray[i]) {
         newCorrect[i] = foundWord[i];
         setCorrectLetters((prevCorrect) => {
@@ -58,7 +58,7 @@ const WordleRow = ({ index }) => {
           return prevCorrect;
         });
         counter++;
-        if (counter === ROWS) {
+        if (counter === 5) {
           setTimeout(() => {
             setGameState(1);
             setShowEndGame(true);
@@ -85,7 +85,7 @@ const WordleRow = ({ index }) => {
       כ: "ך",
     };
 
-    for (let i = 0; i < ROWS; i++) {
+    for (let i = 0; i < 5; i++) {
       const letter = foundWord ? foundWord[i] : null;
       if (letter !== null && !newCorrect[i]) {
         const isLetterEqual =
@@ -117,8 +117,6 @@ const WordleRow = ({ index }) => {
         setWrong((prevWrong) => ({ ...prevWrong, [i]: foundWord[i] }));
       }
     }
-
-    // --------------------------------------------
   }, [isCheckingWord, gameMode]);
 
   useEffect(() => {
@@ -126,12 +124,13 @@ const WordleRow = ({ index }) => {
       setCorrect({});
       setAlmost({});
       setWrong({});
-      setStartNewGame(false);
       setWrongLetters({});
       setCorrectLetters({});
       setAlmostLetters({});
       setFoundWords([]);
       setCurrentRowIndex(1);
+      setStartNewGame(false);
+      console.log("starts new game");
     }
   }, [startNewGame]);
 

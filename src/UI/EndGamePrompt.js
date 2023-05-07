@@ -30,20 +30,19 @@ const EndGamePrompt = ({ timeToNextWord }) => {
   const endGameHandler = (event) => {
     event.stopPropagation();
     setShowEndGame(false);
-    localStorage.removeItem("pickedWord");
     const rand = Math.floor(Math.random() * wordsDb.length);
     setPickedWord(wordsDb[rand]);
     localStorage.setItem("pickedWord", wordsDb[rand]);
-    localStorage.setItem("gameMode", "infinity");
-    setGameMode("infinity");
+    localStorage.setItem("gameMode", "inf");
+    setGameMode("inf");
     setGameState(0);
     setFoundWords([]);
-    setStartNewGame(true);
     setCurrentWord("");
     setAlmostLetters({});
     setWrongLetters({});
     setCorrectLetters({});
     setCurrentRowIndex(1);
+    setStartNewGame(true);
   };
 
   useEffect(() => {

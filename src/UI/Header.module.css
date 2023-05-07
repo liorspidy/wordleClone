@@ -4,10 +4,14 @@
   color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   border: none;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   font-weight: bold;
-  height: 95%;
+  width: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 2.5rem;
 }
 
 .btn:hover {
@@ -89,21 +93,35 @@
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-.menuButton>button {
+.menuButton > button {
   min-width: 0 !important;
   padding: 0 !important;
 }
 
-.menuButton>button:hover {
+.menuButton > button:hover {
   background-color: transparent;
 }
 
 .rightButtons {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-right: 0.5rem;
   gap: 1rem;
+  position: relative;
+}
+
+.openedGameModes {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  top: 50px;
+  right: 0.5rem;
+  gap: 7px;
+  transition: 0.4s;
 }
 
 @media screen and (max-width: 420px) {
@@ -114,9 +132,59 @@
   .header {
     height: 3rem;
   }
+}
 
+@media screen and (max-width: 380px) {
+  .btn {
+    border-radius: 5px;
+    background-color: rgb(81, 78, 78);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border: none;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    font-weight: bold;
+    width: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 2.5rem;
+    font-size: 0.8rem;
+  }
+
+  .gameModeIcon {
+    scale: 0.9;
+  }
   .gameTitle {
     font-size: 0.9rem;
     font-weight: lighter;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .gameTitle {
+    font-size: 0.7rem;
+    font-weight: lighter;
+  }
+
+  .btn {
+    border-radius: 5px;
+    background-color: rgb(81, 78, 78);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border: none;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 2.5rem;
+    font-size: 0.7rem;
+  }
+
+  .gameModeIcon {
+    scale: 0.7;
   }
 }

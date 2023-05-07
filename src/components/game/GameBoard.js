@@ -23,10 +23,9 @@ const GameBoard = () => {
         const localFoundWords = JSON.parse(
           localStorage.getItem("dailyFoundWords")
         );
-        const foundWordsArray =
-          localFoundWords && gameMode === "daily"
-            ? [...localFoundWords, currentWord]
-            : [...foundWords, currentWord];
+        const foundWordsArray = localFoundWords
+          ? [...localFoundWords, currentWord]
+          : [...foundWords, currentWord];
         localStorage.setItem(
           "dailyFoundWords",
           JSON.stringify(foundWordsArray)

@@ -3,10 +3,10 @@ import { AppContext } from "../../context/AppContext";
 import classes from "./Keyboard.module.css";
 
 const KeyboardKey = ({ letter, style }) => {
-  const { currentWord, setCurrentWord } = useContext(AppContext);
+  const { currentWord, setCurrentWord, gameState } = useContext(AppContext);
 
   const currentWordHandler = () => {
-    if (currentWord.length < 5) {
+    if (currentWord.length < 5 && gameState === 0) {
       setCurrentWord((prevState) => {
         return prevState + letter;
       });

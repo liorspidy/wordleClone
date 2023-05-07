@@ -29,6 +29,12 @@ export const AppContext = createContext({
   setWrongWord: () => {},
   gameMode: "daily",
   setGameMode: () => {},
+  correct: {},
+  setCorrect: () => {},
+  almost: {},
+  setAlmost: () => {},
+  wrong: {},
+  setWrong: () => {},
 });
 
 export const AppProvider = ({ children }) => {
@@ -40,6 +46,9 @@ export const AppProvider = ({ children }) => {
   const [correctLetters, setCorrectLetters] = useState([]);
   const [almostLetters, setAlmostLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
+  const [correct, setCorrect] = useState({});
+  const [almost, setAlmost] = useState({});
+  const [wrong, setWrong] = useState({});
   const [gameState, setGameState] = useState(0);
   const [endGame, setEndGame] = useState(false);
   const [startNewGame, setStartNewGame] = useState(false);
@@ -61,6 +70,9 @@ export const AppProvider = ({ children }) => {
     correctLetters,
     wrongLetters,
     almostLetters,
+    correct,
+    almost,
+    wrong,
     gameMode,
     setPickedWord,
     setCurrentWord,
@@ -74,6 +86,9 @@ export const AppProvider = ({ children }) => {
     setCorrectLetters,
     setWrongLetters,
     setAlmostLetters,
+    setCorrect,
+    setAlmost,
+    setWrong,
     setWrongWord,
     setGameMode,
   };

@@ -10,7 +10,16 @@
 button#demo-customized-button {
   font-weight: bold;
 }
+
 .MuiMenuItem-root {
   display: flex !important;
   justify-content: space-between !important;
+}
+
+@media screen and (max-width: 330px) {
+  button#demo-customized-button {
+    font-weight: bold;
+    font-size: 0.6rem;
+    padding: 5px !important;
+  }
 }

@@ -19,19 +19,20 @@ function App() {
     foundWords,
     pickedWord,
     isCheckingWord,
-    setStartNewGame,
     setShowEndGame,
     setFoundWords,
     setCorrectLetters,
     setAlmostLetters,
     setWrongLetters,
     setCurrentRowIndex,
+    setGameMode,
   } = useContext(AppContext);
 
   const [showAddWord, setShowAddWord] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lightMode, setLightMode] = useState(false);
   const [timeToNextWord, setTimeToNextWord] = useState("");
+
   useEffect(() => {
     const updateTimeToNextWord = () => {
       const now = new Date();
@@ -65,8 +66,6 @@ function App() {
   const createNewDailyWord = () => {
     const dailyWord = getDailyValue();
     localStorage.setItem("dailyPickedWord", dailyWord);
-    localStorage.removeItem("currentRowIndex");
-    localStorage.removeItem("dailyFoundWords");
     setFoundWords([]);
     setAlmostLetters({});
     setCorrectLetters({});
@@ -78,7 +77,8 @@ function App() {
   };
 
   const updateDailyWord = () => {
-    setPickedWord(createNewDailyWord());
+    const newDailyWord = createNewDailyWord();
+    setPickedWord(newDailyWord);
   };
 
   // Helper function to generate the daily value
@@ -102,22 +102,28 @@ function App() {
       const dailyStoredWord = localStorage.getItem("dailyPickedWord");
       if (dailyStoredWord && localGameMode === "daily") {
         setPickedWord(dailyStoredWord);
+        console.log("daily");
       } else {
         const daily = createNewDailyWord();
         setPickedWord(daily);
         localStorage.setItem("gameMode", "daily");
+        console.log("daily else");
       }
-    } else if (gameMode === "infinity") {
-      setStartNewGame(true);
+    } else if (gameMode === "inf") {
       const storedWord = localStorage.getItem("pickedWord");
-      if (storedWord && localGameMode === "infinity") {
+      if (storedWord && localGameMode === "inf") {
         setPickedWord(storedWord);
+        console.log("inf");
       } else {
         const rand = Math.floor(Math.random() * wordsDb.length);
         setPickedWord(wordsDb[rand]);
         localStorage.setItem("pickedWord", wordsDb[rand]);
-        localStorage.setItem("gameMode", "infinity");
+        localStorage.setItem("gameMode", "inf");
       }
+    } else {
+      localStorage.setItem("gameMode", "daily");
+      setGameMode("daily");
+      console.log("else");
     }
   }, [setPickedWord, gameMode]);
 
