@@ -102,18 +102,15 @@ function App() {
       const dailyStoredWord = localStorage.getItem("dailyPickedWord");
       if (dailyStoredWord && localGameMode === "daily") {
         setPickedWord(dailyStoredWord);
-        console.log("daily");
       } else {
         const daily = createNewDailyWord();
         setPickedWord(daily);
         localStorage.setItem("gameMode", "daily");
-        console.log("daily else");
       }
     } else if (gameMode === "inf") {
       const storedWord = localStorage.getItem("pickedWord");
       if (storedWord && localGameMode === "inf") {
         setPickedWord(storedWord);
-        console.log("inf");
       } else {
         const rand = Math.floor(Math.random() * wordsDb.length);
         setPickedWord(wordsDb[rand]);
@@ -123,7 +120,6 @@ function App() {
     } else {
       localStorage.setItem("gameMode", "daily");
       setGameMode("daily");
-      console.log("else");
     }
   }, [setPickedWord, gameMode]);
 

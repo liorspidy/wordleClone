@@ -130,7 +130,6 @@ const WordleRow = ({ index }) => {
       setFoundWords([]);
       setCurrentRowIndex(1);
       setStartNewGame(false);
-      console.log("starts new game");
     }
   }, [startNewGame]);
 
