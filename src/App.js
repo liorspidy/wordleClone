@@ -26,6 +26,7 @@ function App() {
     setWrongLetters,
     setCurrentRowIndex,
     setGameMode,
+    setCurrentWord,
   } = useContext(AppContext);
 
   const [showAddWord, setShowAddWord] = useState(false);
@@ -99,6 +100,7 @@ function App() {
   useEffect(() => {
     const localGameMode = localStorage.getItem("gameMode");
     if (gameMode === "daily") {
+      setCurrentWord("");
       const dailyStoredWord = localStorage.getItem("dailyPickedWord");
       if (dailyStoredWord && localGameMode === "daily") {
         setPickedWord(dailyStoredWord);
