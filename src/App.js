@@ -34,34 +34,54 @@ function App() {
   const [lightMode, setLightMode] = useState(false);
   const [timeToNextWord, setTimeToNextWord] = useState("");
 
+  // useEffect(() => {
+  //   const updateTimeToNextWord = () => {
+  //     const day = localStorage.getItem("day");
+  //     const now = new Date();
+  //     if (day) {
+  //       if (now.getDate() > day) {
+  //         updateDailyWord();
+  //       }
+  //     } else {
+  //       localStorage.setItem("day", now.getUTCDate());
+  //     }
+  //     const threeAMToday = new Date(now);
+  //     threeAMToday.setHours(3, 0, 0, 0);
+  //     const timeUntil3AM = threeAMToday.getTime() - now.getTime();
+  //     if (timeUntil3AM < 0) {
+  //       threeAMToday.setDate(threeAMToday.getDate() + 1);
+  //     }
+  //     const timeToNext3AM = threeAMToday.getTime() - now.getTime();
+  //     const hours = Math.floor(timeToNext3AM / (60 * 60 * 1000));
+  //     const minutes = Math.floor(
+  //       (timeToNext3AM % (60 * 60 * 1000)) / (60 * 1000)
+  //     );
+  //     const seconds = Math.floor((timeToNext3AM % (60 * 1000)) / 1000);
+  //     setTimeToNextWord(
+  //       `${hours.toString().padStart(2, "0")}:${minutes
+  //         .toString()
+  //         .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
+  //     );
+  //     if (hours === 0 && minutes === 0 && seconds === 0) {
+  //       updateDailyWord();
+  //     }
+  //   };
+
+  //   updateTimeToNextWord();
+  //   const intervalId = setInterval(updateTimeToNextWord, 1000);
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
   useEffect(() => {
-    const updateTimeToNextWord = () => {
-      const now = new Date();
-      const threeAMToday = new Date(now);
-      threeAMToday.setHours(3, 0, 0, 0);
-      const timeUntil3AM = threeAMToday.getTime() - now.getTime();
-      if (timeUntil3AM < 0) {
-        threeAMToday.setDate(threeAMToday.getDate() + 1);
-      }
-      const timeToNext3AM = threeAMToday.getTime() - now.getTime();
-      const hours = Math.floor(timeToNext3AM / (60 * 60 * 1000));
-      const minutes = Math.floor(
-        (timeToNext3AM % (60 * 60 * 1000)) / (60 * 1000)
-      );
-      const seconds = Math.floor((timeToNext3AM % (60 * 1000)) / 1000);
-      setTimeToNextWord(
-        `${hours.toString().padStart(2, "0")}:${minutes
-          .toString()
-          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
-      );
-      if (hours === 0 && minutes === 0 && seconds === 0) {
+    const now = new Date();
+    const day = localStorage.getItem("day");
+    if (day) {
+      if (now.getDate() > day) {
         updateDailyWord();
       }
-    };
-
-    updateTimeToNextWord();
-    const intervalId = setInterval(updateTimeToNextWord, 1000);
-    return () => clearInterval(intervalId);
+    } else {
+      localStorage.setItem("day", now);
+    }
   }, []);
 
   const createNewDailyWord = () => {
