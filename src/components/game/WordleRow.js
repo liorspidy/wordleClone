@@ -59,6 +59,7 @@ const WordleRow = ({ index }) => {
         });
         counter++;
         if (counter === 5) {
+          console.log("win");
           setTimeout(() => {
             setGameState(1);
             setShowEndGame(true);
