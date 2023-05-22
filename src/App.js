@@ -65,12 +65,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Get the current date
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     var currentDateWithoutTime = currentDate.toISOString().split("T")[0];
 
     const day = localStorage.getItem("day");
+    console.log(currentDateWithoutTime);
     if (day) {
       if (currentDateWithoutTime !== day) {
         updateDailyWord();
@@ -83,6 +83,9 @@ function App() {
   const createNewDailyWord = () => {
     const dailyWord = getDailyValue();
     localStorage.setItem("dailyPickedWord", dailyWord);
+    localStorage.removeItem("dailyFoundWords");
+    localStorage.removeItem("currentRowIndex");
+
     setFoundWords([]);
     setAlmostLetters({});
     setCorrectLetters({});
