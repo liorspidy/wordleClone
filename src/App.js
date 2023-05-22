@@ -54,9 +54,9 @@ function App() {
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
       );
-      if (hours === 0 && minutes === 0 && seconds === 0) {
-        updateDailyWord();
-      }
+      // if (hours === 0 && minutes === 0 && seconds === 0) {
+      //   updateDailyWord();
+      // }
     };
 
     updateTimeToNextWord();
@@ -75,9 +75,8 @@ function App() {
       if (currentDateWithoutTime !== day) {
         updateDailyWord();
       }
-    } else {
-      localStorage.setItem("day", currentDateWithoutTime);
     }
+    localStorage.setItem("day", currentDateWithoutTime);
   }, []);
 
   const createNewDailyWord = () => {
