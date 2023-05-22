@@ -73,15 +73,13 @@ export default function PositionedSnackbar({ lightMode }) {
   }, [open]);
 
   return (
-    <div>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        message="המילה הזו אינה מופיעה במילון"
-        key={vertical + horizontal}
-        TransitionComponent={state.Transition}
-      />
-    </div>
+    <Snackbar
+      anchorOrigin={{ vertical, horizontal }}
+      open={open}
+      onClose={handleClose}
+      message="המילה הזו אינה מופיעה במילון"
+      key={vertical + horizontal}
+      TransitionComponent={state.Transition}
+    />
   );
 }

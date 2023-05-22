@@ -1,3 +1,7 @@
+.gameModebuttons {
+  position: relative;
+}
+
 .btn {
   border-radius: 5px;
   background-color: rgb(81, 78, 78);
@@ -119,7 +123,6 @@
   justify-content: space-between;
   align-items: center;
   top: 50px;
-  right: 0.5rem;
   gap: 7px;
   transition: 0.4s;
 }

@@ -33,6 +33,19 @@ function App() {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lightMode, setLightMode] = useState(false);
   const [timeToNextWord, setTimeToNextWord] = useState("");
+  // const [isMobile, setIsMobile] = useState(false);
+
+  function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+  }
+
+  useEffect(() => {
+    if (!isMobileDevice()) {
+      // document.querySelector(".App").style.position = "relative";
+    }
+  }, []);
 
   useEffect(() => {
     const updateTimeToNextWord = () => {
@@ -70,7 +83,6 @@ function App() {
     var currentDateWithoutTime = currentDate.toISOString().split("T")[0];
 
     const day = localStorage.getItem("day");
-    console.log(currentDateWithoutTime);
     if (day) {
       if (currentDateWithoutTime !== day) {
         updateDailyWord();

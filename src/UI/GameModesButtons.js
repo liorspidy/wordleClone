@@ -5,6 +5,7 @@ import wordsDb from "../merged_words.json";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import cardClasses from "./Card.module.css";
+import Backdrop from "@mui/material/Backdrop";
 
 const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
   const gameModesHandler = () => {
@@ -55,17 +56,20 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
   };
 
   return (
-    <div>
+    <div className={classes.gameModebuttons}>
       <button className={classes.btn} onClick={gameModesHandler}>
         מצב משחק
       </button>
       {showGameModes && (
-        <div
-          className={`${cardClasses.backdrop} ${
-            showGameModes ? cardClasses.show : ""
-          }`}
-          onClick={() => setShowGameModes(false)}
-        >
+        <>
+          <Backdrop
+            className={`${cardClasses.backdrop} ${
+              showGameModes ? cardClasses.show : ""
+            }`}
+            onClick={() => setShowGameModes(false)}
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={showGameModes}
+          ></Backdrop>
           <div className={classes.openedGameModes}>
             <button className={classes.btn} onClick={dailyHandler}>
               <div className={classes.gameModeIcon}>
@@ -80,7 +84,7 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
               אינסופי
             </button>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
