@@ -54,6 +54,8 @@ function App() {
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
       );
+
+      getCurrentDay();
     };
 
     updateTimeToNextWord();
@@ -68,12 +70,14 @@ function App() {
 
     const day = localStorage.getItem("day");
     if (day) {
-      if (currentDateWithoutTime !== day) {
+      if (
+        currentDateWithoutTime !== day ||
+        !localStorage.getItem("dailyPickedWord")
+      ) {
         updateDailyWord();
       }
     }
     localStorage.setItem("day", currentDateWithoutTime);
-    return currentDateWithoutTime !== day;
   }
 
   // Helper function to generate the daily value
