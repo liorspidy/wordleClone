@@ -52,7 +52,7 @@ const Header = ({
         </div>
       </div>
       <div className={classes.gameTitle}>
-        <b>וורדעל + </b>| {gameMode === "daily" ? "יומי" : "אינסופי"}
+        <b>וורדל + </b>| {gameMode === "daily" ? "יומי" : "אינסופי"}
       </div>
       <div className={classes.rightButtons}>
         <GameModesButtons
