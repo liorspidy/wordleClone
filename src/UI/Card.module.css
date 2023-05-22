@@ -22,7 +22,7 @@
   left: 0;
   top: 0;
   animation: showBackdrop 0.4s ease-in-out;
-  z-index: 0;
+  z-index: 1;
 }
 
 .backdrop {
