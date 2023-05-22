@@ -35,8 +35,8 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
       setWrongLetters({});
       setCorrectLetters({});
       setFoundWords([]);
-      setShowGameModes(false);
     }
+    setShowGameModes(false);
   };
 
   const InfinityHndler = () => {
