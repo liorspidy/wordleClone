@@ -33,19 +33,6 @@ function App() {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lightMode, setLightMode] = useState(false);
   const [timeToNextWord, setTimeToNextWord] = useState("");
-  // const [isMobile, setIsMobile] = useState(false);
-
-  function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-  }
-
-  useEffect(() => {
-    if (!isMobileDevice()) {
-      // document.querySelector(".App").style.position = "relative";
-    }
-  }, []);
 
   useEffect(() => {
     const updateTimeToNextWord = () => {
@@ -67,9 +54,6 @@ function App() {
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
       );
-      // if (hours === 0 && minutes === 0 && seconds === 0) {
-      //   updateDailyWord();
-      // }
     };
 
     updateTimeToNextWord();
@@ -77,7 +61,7 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
-  useEffect(() => {
+  function getCurrentDay() {
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     var currentDateWithoutTime = currentDate.toISOString().split("T")[0];
@@ -89,7 +73,22 @@ function App() {
       }
     }
     localStorage.setItem("day", currentDateWithoutTime);
-  }, []);
+    return currentDateWithoutTime !== day;
+  }
+
+  // Helper function to generate the daily value
+  const getDailyValue = () => {
+    const seed = new Date().toISOString().slice(0, 10);
+    const hash = CryptoJS.SHA256(seed.toString()).toString();
+    const multiplier = 1664525;
+    const increment = 1013904223;
+    const modulus = Math.pow(2, 32);
+    let index = parseInt(hash.slice(-1), 16) % wordsDb.length;
+    for (let i = 0; i < 13; i++) {
+      index = (multiplier * index + increment) % modulus;
+    }
+    return wordsDb[index % wordsDb.length];
+  };
 
   const createNewDailyWord = () => {
     const dailyWord = getDailyValue();
@@ -112,20 +111,6 @@ function App() {
     setPickedWord(newDailyWord);
   };
 
-  // Helper function to generate the daily value
-  const getDailyValue = () => {
-    const seed = new Date().toISOString().slice(0, 10);
-    const hash = CryptoJS.SHA256(seed.toString()).toString();
-    const multiplier = 1664525;
-    const increment = 1013904223;
-    const modulus = Math.pow(2, 32);
-    let index = parseInt(hash.slice(-1), 16) % wordsDb.length;
-    for (let i = 0; i < 13; i++) {
-      index = (multiplier * index + increment) % modulus;
-    }
-    return wordsDb[index % wordsDb.length];
-  };
-
   //sets the picked word
   useEffect(() => {
     const localGameMode = localStorage.getItem("gameMode");
@@ -135,8 +120,7 @@ function App() {
       if (dailyStoredWord && localGameMode === "daily") {
         setPickedWord(dailyStoredWord);
       } else {
-        const daily = createNewDailyWord();
-        setPickedWord(daily);
+        getCurrentDay();
         localStorage.setItem("gameMode", "daily");
       }
     } else if (gameMode === "inf") {

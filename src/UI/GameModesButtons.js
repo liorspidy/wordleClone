@@ -16,9 +16,6 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
 
   const {
     setGameMode,
-    setAlmostLetters,
-    setCorrectLetters,
-    setWrongLetters,
     gameMode,
     setFoundWords,
     setCurrentRowIndex,
@@ -28,12 +25,10 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
   } = useContext(AppContext);
 
   const dailyHandler = () => {
+    setStartNewGame(true);
     setGameMode("daily");
     localStorage.setItem("gameMode", "daily");
     if (gameMode !== "daily") {
-      setAlmostLetters({});
-      setWrongLetters({});
-      setCorrectLetters({});
       setFoundWords([]);
     }
     setShowGameModes(false);
@@ -43,9 +38,6 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
     setStartNewGame(true);
     setGameMode("inf");
     localStorage.setItem("gameMode", "inf");
-    setAlmostLetters({});
-    setWrongLetters({});
-    setCorrectLetters({});
     setCurrentRowIndex(1);
     setFoundWords([]);
     setGameState(0);

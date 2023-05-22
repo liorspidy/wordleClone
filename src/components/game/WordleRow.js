@@ -59,7 +59,6 @@ const WordleRow = ({ index }) => {
         });
         counter++;
         if (counter === 5) {
-          console.log("win");
           setTimeout(() => {
             setGameState(1);
             setShowEndGame(true);
@@ -118,7 +117,7 @@ const WordleRow = ({ index }) => {
         setWrong((prevWrong) => ({ ...prevWrong, [i]: foundWord[i] }));
       }
     }
-  }, [isCheckingWord, gameMode]);
+  }, [isCheckingWord, gameMode, startNewGame]);
 
   useEffect(() => {
     if (startNewGame) {
