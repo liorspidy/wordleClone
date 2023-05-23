@@ -67,13 +67,11 @@ function App() {
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     var currentDateWithoutTime = currentDate.toISOString().split("T")[0];
+    const dailyPicked = localStorage.getItem("dailyPickedWord");
 
     const day = localStorage.getItem("day");
     if (day) {
-      if (
-        currentDateWithoutTime !== day ||
-        !localStorage.getItem("dailyPickedWord")
-      ) {
+      if (currentDateWithoutTime !== day || dailyPicked === null) {
         updateDailyWord();
       }
     }
@@ -96,7 +94,6 @@ function App() {
 
   const createNewDailyWord = () => {
     const dailyWord = getDailyValue();
-    localStorage.setItem("dailyPickedWord", dailyWord);
     localStorage.removeItem("dailyFoundWords");
     localStorage.removeItem("currentRowIndex");
 
@@ -112,6 +109,7 @@ function App() {
 
   const updateDailyWord = () => {
     const newDailyWord = createNewDailyWord();
+    localStorage.setItem("dailyPickedWord", newDailyWord);
     setPickedWord(newDailyWord);
   };
 
@@ -121,12 +119,8 @@ function App() {
     if (gameMode === "daily") {
       setCurrentWord("");
       const dailyStoredWord = localStorage.getItem("dailyPickedWord");
-      if (dailyStoredWord && localGameMode === "daily") {
-        setPickedWord(dailyStoredWord);
-      } else {
-        getCurrentDay();
-        localStorage.setItem("gameMode", "daily");
-      }
+      setPickedWord(dailyStoredWord);
+      localStorage.setItem("gameMode", "daily");
     } else if (gameMode === "inf") {
       const storedWord = localStorage.getItem("pickedWord");
       if (storedWord && localGameMode === "inf") {
