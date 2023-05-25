@@ -17,6 +17,7 @@ const GameModesButtons = ({ showGameModes, setShowGameModes }) => {
   const {
     setGameMode,
     gameMode,
+    foundWords,
     setFoundWords,
     setCurrentRowIndex,
     setGameState,

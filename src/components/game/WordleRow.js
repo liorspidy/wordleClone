@@ -34,6 +34,20 @@ const WordleRow = ({ index }) => {
   const foundWord = foundWordsArray[index - 1]?.split("");
 
   useEffect(() => {
+    if (startNewGame) {
+      setCorrect({});
+      setAlmost({});
+      setWrong({});
+      setWrongLetters({});
+      setCorrectLetters({});
+      setAlmostLetters({});
+      setFoundWords([]);
+      setCurrentRowIndex(1);
+      setStartNewGame(false);
+    }
+  }, [startNewGame]);
+
+  useEffect(() => {
     const pickedArray =
       dailyPickedWord && gameMode === "daily"
         ? dailyPickedWord.split("")
@@ -118,20 +132,6 @@ const WordleRow = ({ index }) => {
       }
     }
   }, [isCheckingWord, gameMode, startNewGame]);
-
-  useEffect(() => {
-    if (startNewGame) {
-      setCorrect({});
-      setAlmost({});
-      setWrong({});
-      setWrongLetters({});
-      setCorrectLetters({});
-      setAlmostLetters({});
-      setFoundWords([]);
-      setCurrentRowIndex(1);
-      setStartNewGame(false);
-    }
-  }, [startNewGame]);
 
   return (
     <div className={classes.wordleRow}>

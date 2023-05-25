@@ -96,7 +96,6 @@ function App() {
     const dailyWord = getDailyValue();
     localStorage.removeItem("dailyFoundWords");
     localStorage.removeItem("currentRowIndex");
-
     setFoundWords([]);
     setAlmostLetters({});
     setCorrectLetters({});
@@ -122,6 +121,7 @@ function App() {
       setPickedWord(dailyStoredWord);
       localStorage.setItem("gameMode", "daily");
     } else if (gameMode === "inf") {
+      setCurrentWord("");
       const storedWord = localStorage.getItem("pickedWord");
       if (storedWord && localGameMode === "inf") {
         setPickedWord(storedWord);
