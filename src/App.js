@@ -65,7 +65,6 @@ function App() {
 
   function getCurrentDay() {
     var currentDate = new Date();
-    // currentDate.setHours(0, 0, 0, 0);
     var currentDateWithoutTime = currentDate.toISOString().split("T")[0];
     const dailyPicked = localStorage.getItem("dailyPickedWord");
 
