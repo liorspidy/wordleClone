@@ -50,7 +50,7 @@ const EndGamePrompt = ({ timeToNextWord }) => {
     const gameModeHeb = gameMode === "daily" ? "יומי" : "אינסופי";
     const message = `וורדל + | ${gameModeHeb}
 ניסיון ${curIndex - 1} מתוך 6
-שחקו בוורדעל + כאן:
+שחקו בוורדל + כאן:
 https://liwordleplus.netlify.app`;
 
     try {
