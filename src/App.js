@@ -31,8 +31,34 @@ function App() {
 
   const [showAddWord, setShowAddWord] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
-  const [lightMode, setLightMode] = useState(false);
+  const [lightMode, setLightMode] = useState(() => {
+    let lightModeLocal = localStorage.getItem("lightMode");
+    if (lightModeLocal === null) {
+      lightModeLocal = "1";
+      localStorage.setItem("lightMode", lightModeLocal);
+    }
+    return lightModeLocal === "1";
+  });
+
   const [timeToNextWord, setTimeToNextWord] = useState("");
+
+  useEffect(() => {
+    let lightModeLocal = localStorage.getItem("lightMode");
+    console.log("lightMode: " + lightModeLocal);
+    if (lightModeLocal === "0") {
+      setLightMode(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (lightMode) {
+      document.body.classList.add("light");
+      localStorage.setItem("lightMode", "1");
+    } else {
+      document.body.classList.remove("light");
+      localStorage.setItem("lightMode", "0");
+    }
+  }, [lightMode]);
 
   useEffect(() => {
     const updateTimeToNextWord = () => {
@@ -154,17 +180,6 @@ function App() {
     setShowEndGame,
     gameMode,
   ]);
-
-  // sets the lightmode
-  useEffect(() => {
-    if (lightMode) {
-      document.body.classList.remove("light");
-      // localStorage.setItem("lightMode", "0");
-    } else {
-      document.body.classList.add("light");
-      // localStorage.setItem("lightMode", "1");
-    }
-  }, [lightMode]);
 
   return (
     <div className={`App ${lightMode ? "lightMode" : ""}`}>

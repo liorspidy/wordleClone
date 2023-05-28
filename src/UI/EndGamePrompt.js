@@ -3,6 +3,7 @@ import { AppContext } from "../context/AppContext";
 import Card from "./Card";
 import classes from "./Card.module.css";
 import wordsDb from "../merged_words.json";
+import ShareIcon from "@mui/icons-material/Share";
 
 const EndGamePrompt = ({ timeToNextWord }) => {
   const {
@@ -43,6 +44,20 @@ const EndGamePrompt = ({ timeToNextWord }) => {
     setCorrectLetters({});
     setCurrentRowIndex(1);
     setStartNewGame(true);
+  };
+
+  const handleShareSteps = async () => {
+    const message = `וורדל + | יומי
+ניסיון ${curIndex - 1} מתוך 6
+שחקו בוורדעל + כאן:
+https://liwordleplus.netlify.app`;
+
+    try {
+      await navigator.clipboard.writeText(message);
+      alert("הועתק ללוח!");
+    } catch (error) {
+      console.log("Error copying to clipboard:", error);
+    }
   };
 
   useEffect(() => {
@@ -89,7 +104,20 @@ const EndGamePrompt = ({ timeToNextWord }) => {
             המילה הייתה {pickedWord}
           </h4>
           <h5>המשחק היומי הבא בעוד {timeToNextWord}</h5>
-          <button tabIndex="0" className={classes.btn} onClick={endGameHandler}>
+          <div
+            tabIndex="0"
+            className={classes.share}
+            onClick={handleShareSteps}
+            title="שתף את המשחק"
+          >
+            <ShareIcon />
+          </div>
+          <button
+            tabIndex="0"
+            className={classes.btn}
+            onClick={endGameHandler}
+            title="בוא נתחיל משחק"
+          >
             בוא נתחיל משחק
           </button>
         </div>
