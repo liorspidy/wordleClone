@@ -95,9 +95,18 @@ function App() {
     const dailyPicked = localStorage.getItem("dailyPickedWord");
 
     const day = localStorage.getItem("day");
+    console.log("day: " + day);
+    console.log("currentDateWithoutTime: " + currentDateWithoutTime);
+    console.log(day === currentDateWithoutTime);
     if (day) {
       if (currentDateWithoutTime !== day || dailyPicked === null) {
         updateDailyWord();
+        const time = currentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        localStorage.setItem("time", time);
       }
     }
     localStorage.setItem("day", currentDateWithoutTime);
@@ -106,6 +115,7 @@ function App() {
   // Helper function to generate the daily value
   const getDailyValue = () => {
     const seed = new Date().toISOString().slice(0, 10);
+    console.log(seed);
     const hash = CryptoJS.SHA256(seed.toString()).toString();
     const multiplier = 1664525;
     const increment = 1013904223;
@@ -132,6 +142,7 @@ function App() {
   };
 
   const updateDailyWord = () => {
+    console.log("update daily word called");
     const newDailyWord = createNewDailyWord();
     localStorage.setItem("dailyPickedWord", newDailyWord);
     setPickedWord(newDailyWord);
