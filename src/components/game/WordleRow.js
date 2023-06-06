@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../context/AppContext';
-import classes from './GameBoardStyle.module.css';
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../context/AppContext";
+import classes from "./GameBoardStyle.module.css";
 
 const WordleRow = ({ index }) => {
   const {
@@ -26,17 +26,17 @@ const WordleRow = ({ index }) => {
   const [wrong, setWrong] = useState({});
 
   var currentDate = new Date();
-  var currentDateWithoutTime = currentDate.toISOString().split('T')[0];
-  const day = localStorage.getItem('day');
+  var currentDateWithoutTime = currentDate.toISOString().split("T")[0];
+  const day = localStorage.getItem("day");
 
-  const items = currentWord.split('');
-  const dailyPickedWord = localStorage.getItem('dailyPickedWord');
-  const localFoundWords = JSON.parse(localStorage.getItem('dailyFoundWords'));
+  const items = currentWord.split("");
+  const dailyPickedWord = localStorage.getItem("dailyPickedWord");
+  const localFoundWords = JSON.parse(localStorage.getItem("dailyFoundWords"));
   const foundWordsArray =
-    localFoundWords && gameMode === 'daily' ? localFoundWords : foundWords;
-  const localCurrentRowIndex = localStorage.getItem('currentRowIndex');
+    localFoundWords && gameMode === "daily" ? localFoundWords : foundWords;
+  const localCurrentRowIndex = localStorage.getItem("currentRowIndex");
   const foundWord =
-    day === currentDateWithoutTime ? foundWordsArray[index - 1]?.split('') : [];
+    day === currentDateWithoutTime ? foundWordsArray[index - 1]?.split("") : [];
 
   useEffect(() => {
     if (startNewGame) {
@@ -54,10 +54,10 @@ const WordleRow = ({ index }) => {
 
   useEffect(() => {
     const pickedArray =
-      dailyPickedWord && gameMode === 'daily'
-        ? dailyPickedWord.split('')
-        : pickedWord.split('');
-    if (gameMode === 'daily') {
+      dailyPickedWord && gameMode === "daily"
+        ? dailyPickedWord.split("")
+        : pickedWord.split("");
+    if (gameMode === "daily") {
       !localCurrentRowIndex
         ? setCurrentRowIndex(1)
         : setCurrentRowIndex(+localCurrentRowIndex);
@@ -92,16 +92,16 @@ const WordleRow = ({ index }) => {
     );
 
     const equalLetters = {
-      ם: 'מ',
-      ן: 'נ',
-      ץ: 'צ',
-      ף: 'פ',
-      ך: 'כ',
-      מ: 'ם',
-      נ: 'ן',
-      צ: 'ץ',
-      פ: 'ף',
-      כ: 'ך',
+      ם: "מ",
+      ן: "נ",
+      ץ: "צ",
+      ף: "פ",
+      ך: "כ",
+      מ: "ם",
+      נ: "ן",
+      צ: "ץ",
+      פ: "ף",
+      כ: "ך",
     };
 
     for (let i = 0; i < 5; i++) {
@@ -148,14 +148,14 @@ const WordleRow = ({ index }) => {
             ? classes.almost
             : foundWord && wrong[4] === foundWord[4]
             ? classes.wrong
-            : ''
+            : ""
         }`}
       >
         {foundWordsArray[index - 1]?.length
           ? foundWord[4]
           : currentRowIndex === +index
           ? items[4]
-          : ''}
+          : ""}
       </div>
       <div
         className={`${classes.wordleBlock} ${
@@ -165,14 +165,14 @@ const WordleRow = ({ index }) => {
             ? classes.almost
             : foundWord && wrong[3] === foundWord[3]
             ? classes.wrong
-            : ''
+            : ""
         }`}
       >
         {foundWordsArray[index - 1]?.length
           ? foundWord[3]
           : currentRowIndex === +index
           ? items[3]
-          : ''}
+          : ""}
       </div>
       <div
         className={`${classes.wordleBlock} ${
@@ -182,14 +182,14 @@ const WordleRow = ({ index }) => {
             ? classes.almost
             : foundWord && wrong[2] === foundWord[2]
             ? classes.wrong
-            : ''
+            : ""
         }`}
       >
         {foundWordsArray[index - 1]?.length
           ? foundWord[2]
           : currentRowIndex === +index
           ? items[2]
-          : ''}
+          : ""}
       </div>
       <div
         className={`${classes.wordleBlock} ${
@@ -199,14 +199,14 @@ const WordleRow = ({ index }) => {
             ? classes.almost
             : foundWord && wrong[1] === foundWord[1]
             ? classes.wrong
-            : ''
+            : ""
         }`}
       >
         {foundWordsArray[index - 1]?.length
           ? foundWord[1]
           : currentRowIndex === +index
           ? items[1]
-          : ''}
+          : ""}
       </div>
       <div
         className={`${classes.wordleBlock} ${
@@ -216,14 +216,14 @@ const WordleRow = ({ index }) => {
             ? classes.almost
             : foundWord && wrong[0] === foundWord[0]
             ? classes.wrong
-            : ''
+            : ""
         }`}
       >
         {foundWordsArray[index - 1]?.length
           ? foundWord[0]
           : currentRowIndex === +index
           ? items[0]
-          : ''}
+          : ""}
       </div>
     </div>
   );

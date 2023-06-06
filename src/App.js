@@ -19,6 +19,7 @@ function App() {
     foundWords,
     pickedWord,
     isCheckingWord,
+    currentRowIndex,
     setShowEndGame,
     setFoundWords,
     setCorrectLetters,
@@ -44,7 +45,6 @@ function App() {
 
   useEffect(() => {
     let lightModeLocal = localStorage.getItem("lightMode");
-    console.log("lightMode: " + lightModeLocal);
     if (lightModeLocal === "0") {
       setLightMode(false);
     }
@@ -95,9 +95,9 @@ function App() {
     const dailyPicked = localStorage.getItem("dailyPickedWord");
 
     const day = localStorage.getItem("day");
-    console.log("day: " + day);
-    console.log("currentDateWithoutTime: " + currentDateWithoutTime);
-    console.log(day === currentDateWithoutTime);
+    // console.log("day: " + day);
+    // console.log("currentDateWithoutTime: " + currentDateWithoutTime);
+    // console.log(day === currentDateWithoutTime);
     if (day) {
       if (currentDateWithoutTime !== day || dailyPicked === null) {
         updateDailyWord();
@@ -176,7 +176,11 @@ function App() {
   // ends the game if the user got the wrong answer
   useEffect(() => {
     const foundWord = foundWords[5];
-    if (foundWord && foundWord !== pickedWord) {
+    if (
+      (foundWord && foundWord !== pickedWord) ||
+      (foundWord !== pickedWord && currentRowIndex === 7)
+    ) {
+      console.log("failed");
       const timeout = setTimeout(() => {
         setShowEndGame(true);
         setGameState(2);

@@ -49,7 +49,7 @@ const EndGamePrompt = ({ timeToNextWord }) => {
   const handleShareSteps = async () => {
     const gameModeHeb = gameMode === "daily" ? "יומי" : "אינסופי";
     const message = `וורדל + | ${gameModeHeb}
-ניסיון ${curIndex - 1} מתוך 6
+ניסיון ${gameState === 1 ? curIndex - 1 : "X"} מתוך 6
 שחקו בוורדל + כאן:
 https://liwordleplus.netlify.app`;
 
